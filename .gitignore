@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Tensorflow keras models
+*.keras
+
+# Python Virtual Environment
+venv/

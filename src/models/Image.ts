@@ -1,27 +1,22 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
-// Define the image schema
-interface IImage extends Document {
-    userId: string;         // The ID of the user who uploaded the image
-    imageData: Buffer;      // The binary data of the uploaded image
-    timestamp: Date;        // The timestamp when the image was uploaded
-    prediction?: string;    // The result of the Keras model (optional)
+interface ImageDocument extends Document {
+    userId: string;
+    imageData: string; // The base64 string of the image
+    timestamp: Date;
+    date: Date;
 }
 
-// Schema definition for the image collection
-const ImageSchema: Schema = new Schema(
+const ImageSchema = new Schema<ImageDocument>(
     {
-        userId: { type: String, required: true },    // Required field for user ID
-        imageData: { type: Buffer, required: true },  // Required field for the image data (binary data)
-        timestamp: { type: Date, default: Date.now }, // Default to current date and time
-        prediction: { type: String },                 // Optional field for storing prediction results
+        userId: { type: String, required: true },
+        imageData: { type: String, required: true }, // Base64 encoded image
+        timestamp: { type: Date, default: Date.now },
+        date: { type: Date, default: Date.now },
     },
-    {
-        timestamps: true,  // Automatically include createdAt and updatedAt fields
-    }
+    { collection: "Image" } // Explicitly specify the collection name
 );
 
-// Create and export the Image model
-const Image = mongoose.models.Image || mongoose.model<IImage>('Image', ImageSchema);
+const Image = mongoose.models.Image || mongoose.model<ImageDocument>("Image", ImageSchema);
 
 export default Image;

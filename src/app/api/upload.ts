@@ -1,35 +1,32 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "@/lib/mongodb"; // Your MongoDB connection file
-import Image from "@/models/Image"; // Import the Image model
+import type { NextApiRequest, NextApiResponse } from "next";
+import { dbConnect } from "../../lib/mongodb";
+import Image from "../../models/Image";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // Connect to the database
-    await dbConnect();
-
     if (req.method === "POST") {
         try {
-            // Ensure the userId and imageFile are provided
+            // Ensure we are connected to the database
+            await dbConnect();
+
+            // Get the form data from the body
             const { userId, imageFile } = req.body;
 
-            if (!imageFile || !userId) {
-                return res.status(400).json({ message: "Invalid request. Missing file or userId." });
+            if (!userId || !imageFile) {
+                return res.status(400).json({ message: "User ID and image file are required." });
             }
 
-            // Convert the image file to a Buffer (assuming base64-encoded image data from frontend)
-            const imageBuffer = Buffer.from(imageFile, "base64");
-
-            // Create a new Image document
+            // Create a new image record in the database
             const newImage = new Image({
                 userId,
-                imageData: imageBuffer,
+                imageData: imageFile,  // Base64 encoded image
                 timestamp: new Date(),
+                date: new Date(),
             });
 
-            // Save the document to MongoDB
-            const savedImage = await newImage.save();
+            // Save the image record
+            await newImage.save();
 
-            // Respond with a success message and the saved document
-            return res.status(201).json({ message: "Image uploaded successfully", image: savedImage });
+            return res.status(200).json({ message: "Image uploaded successfully", image: newImage });
         } catch (error) {
             console.error("Error uploading image:", error);
             return res.status(500).json({ message: "Internal Server Error" });

@@ -51,8 +51,8 @@ export default function Scan() {
       const base64Image = reader.result as string;
 
       const formData = {
-        userId: "user-12345",
-        imageFile: base64Image.split(",")[1],
+        userId: "user-12345", // Example user ID, replace with actual user ID from session or auth
+        imageFile: base64Image.split(",")[1], // Remove the data URI prefix
       };
 
       try {
