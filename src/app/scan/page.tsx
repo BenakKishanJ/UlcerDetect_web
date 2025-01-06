@@ -1,11 +1,15 @@
 "use client"
 import React, { useState, useCallback } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"; // Your custom Button component
 import { Upload } from "lucide-react";
+import Image from "next/image";
 
 export default function Scan() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [prediction, setPrediction] = useState<string | null>(null);
+  const [confidence, setConfidence] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,37 +47,36 @@ export default function Scan() {
     }
   }, []);
 
-  const handleUpload = async () => {
-    if (!file) return;
+  // Upload and send the image to backend
+  const handleUpload = async (event: React.MouseEvent) => {
+    event.preventDefault(); // Prevent default behavior of button click
 
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64Image = reader.result as string;
+    if (!file) {
+      setError("No image selected");
+      return;
+    }
 
-      const formData = {
-        userId: "user-12345", // Example user ID, replace with actual user ID from session or auth
-        imageFile: base64Image.split(",")[1], // Remove the data URI prefix
-      };
+    const formData = new FormData();
+    formData.append("file", file);
 
-      try {
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        body: formData,
+      });
 
-        const data = await response.json();
-        console.log("Image uploaded:", data);
-        // Clear the file after successful upload
-        setFile(null);
-      } catch (error) {
-        console.error("Error uploading image:", error);
+      const data = await response.json();
+
+      if (response.ok) {
+        setPrediction(data.class);
+        setConfidence(data.confidence);
+      } else {
+        setError(data.error || "An error occurred");
       }
-    };
-
-    reader.readAsDataURL(file);
+    } catch (err) {
+      setError("Failed to fetch predictions");
+      console.log(err)
+    }
   };
 
   return (
@@ -84,7 +87,7 @@ export default function Scan() {
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={`relative border-2 border-dashed rounded-lg p-8 h-56 flex flex-col items-center justify-center transition-colors
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"}
+          ${isDragging ? "border-blue-500 bg-blue-50" : "border-[#251605]"}
           ${file ? "bg-green-50" : ""}
         `}
         >
@@ -104,9 +107,6 @@ export default function Scan() {
               <div className="text-center">
                 <p className="text-sm font-medium mb-2">Selected file:</p>
                 <p className="text-sm text-gray-500 mb-4">{file.name}</p>
-                <Button onClick={handleUpload} variant="default">
-                  Upload File
-                </Button>
               </div>
           ) : (
               <div className="text-center">
@@ -117,6 +117,44 @@ export default function Scan() {
               </div>
           )}
         </div>
-      </div>
-  );
-}
+
+        {/* Upload and Predict button below */}
+        {file && (
+            <div className="mt-4 text-center bg-[#251605]">
+              <Button onClick={handleUpload} variant="default">
+                Upload and Predict
+              </Button>
+            </div>
+        )}
+
+        {/* Display Prediction Result as a Card */}
+        {prediction && confidence !== null && file && (
+            <div className="mt-8 max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+                <Image
+                    src={URL.createObjectURL(file)}
+                    alt="Uploaded file"
+                    width={400} // Set a fixed width or use a responsive size
+                    height={225} // Set a fixed height for the image
+                    className="w-full h-auto object-cover rounded-lg"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-800">Prediction</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    <strong>Class:</strong> {prediction}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <strong>Confidence:</strong> {(confidence * 100).toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+              )}
+
+              {/* Display Error Message */}
+              {error && (
+                  <div style={{marginTop: "1rem", color: "red"}}>
+                    <strong>Error:</strong> {error}
+                  </div>
+              )}
+            </div>
+        );
+        }

@@ -14,6 +14,14 @@ CORS(app)
 # Load your model
 model = tf.keras.models.load_model('/home/benki/Projects/UlcerApp/ulcer_detect/tensorflow_model/DenseNet121.keras')
 
+#Class Names
+class_names=['Grade 0',
+              'Grade 1',
+              'Grade 2',
+              'Grade 3',
+              'Grade 4',
+              'Grade 5']
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -29,15 +37,22 @@ def predict():
         image_array = np.expand_dims(image_array, axis=0)
 
         # Make prediction
+        #predictions = model.predict(image_array)
+        #predicted_class = np.argmax(predictions, axis=1)[0]
+        #confidence = np.max(predictions)
+
+
+        # Ensure the model returns a list of probabilities for each class
         predictions = model.predict(image_array)
-        predicted_class = np.argmax(predictions, axis=1)[0]
-        confidence = np.max(predictions)
+        predicted_class = np.argmax(predictions)  # Get the index of the class with highest probability
+        confidence = float(predictions[0][predicted_class]) # Confidence of the prediction
 
         # Return the result
-        return jsonify({
-            "class": int(predicted_class),
-            "confidence": float(confidence)
-        })
+        response = {
+            "class": class_names[predicted_class],  # Class name
+            "confidence": confidence,               # Confidence value
+        }
+        return jsonify(response)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
