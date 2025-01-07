@@ -35,7 +35,6 @@ const averiaLibre = Averia_Libre({
     style: ["normal", "italic"], // Add styles if needed
 });
 
-
 export const metadata = {
   title: "Ulcer Detect",
   description: "Ulcer Detection and Monitoring using AI",
@@ -50,12 +49,15 @@ export default async function RootLayout({
   const user = await getUser();
 
   return (
-      <html lang="en" className={averiaLibre.className}>
+      <html lang="en" className={firaSans.className}>
       <body>
-      <header>
-          <nav className="flex items-center justify-between px-8 py-4 bg-[#C57B57] shadow-md sticky top-0 w-full z-50 text-[#251605]">
+      <header className={averiaLibre.className}>
+          <nav className="flex items-center justify-between px-8 py-4 bg-primary shadow-md sticky top-0 w-full z-50 text-neutral">
               {/* Branding Section */}
-              <h1 className="font-extrabold text-4xl ">Ulcer Detect</h1>
+              <h1 className="font-extrabold text-4xl">
+                <em className={averiaLibre.className}>Ulcer Detect</em>
+              </h1>
+              
 
               {/* Navigation Items */}
               <div className="flex-1 flex justify-center">
@@ -80,10 +82,10 @@ export default async function RootLayout({
                           </NavigationMenuItem>
 
                           <NavigationMenuItem>
-                              <NavigationMenuTrigger className="text-2xl font-bold bg-[#C57B57]">
+                              <NavigationMenuTrigger className="text-2xl font-bold bg-primary">
                                   Resources
                               </NavigationMenuTrigger>
-                              <NavigationMenuContent>
+                              <NavigationMenuContent className="bg-primary">
                                   <NavigationMenuLink href="/">
                                       Link 1
                                   </NavigationMenuLink>
@@ -116,7 +118,7 @@ export default async function RootLayout({
                           <div className="flex items-center space-x-4">
                               {user?.picture ? (
                                   <Image
-                                      className="w-10 h-10 rounded-full"
+                                      className="w-10 h-10 rounded-full border-2 border-secondary"
                                       src={user.picture}
                                       alt="User profile avatar"
                                       width={40}
@@ -125,17 +127,17 @@ export default async function RootLayout({
                                   />
                               ) : (
                                   <div
-                                      className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full text-lg font-semibold">
+                                      className="w-10 h-10 flex items-center justify-center bg-neutral rounded-full text-lg font-semibold">
                                       {user?.given_name?.[0]}
                                       {user?.family_name?.[0]}
                                   </div>
                               )}
-                              <div className="text-sm text-gray-700">
+                              <div className="text-sm text-neutral">
                                   {user?.given_name} {user?.family_name}
                               </div>
                           </div>
                           <LogoutLink>
-                              <Button variant="default">Log out</Button>
+                              <Button variant="default" className="bg-black text-extrabold">Log out</Button>
                           </LogoutLink>
                       </>
                   )}
@@ -144,13 +146,13 @@ export default async function RootLayout({
       </header>
 
       {/* Main Content */}
-      <main className="min-h-screen flex flex-col bg-[#F7DBA7]">{children}</main>
+      <main className="min-h-screen flex flex-col bg-neautral">{children}</main>
 
       {/* Footer */}
-      <footer className="p-8 bg-gray-100">
-          <div className="text-center">
-              <strong className="text-xl font-semibold">Ulcer Detect</strong>
-              <small className="block text-gray-500">
+      <footer className="p-8 bg-secondary">
+          <div className="text-center text-xl font-semibold">
+              <strong className={averiaLibre.className}>Ulcer Detect</strong>
+              <small className="block text-tertiary">
                   © 2025 UlcerDetect, Inc. All rights reserved.
               </small>
           </div>

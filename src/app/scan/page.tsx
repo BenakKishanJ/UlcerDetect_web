@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"; // Your custom Button component
 import { Upload } from "lucide-react";
 import Image from "next/image";
 
+
+
 export default function Scan() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -81,13 +83,26 @@ export default function Scan() {
 
   return (
       <div className="p-8">
+         <div className="py-4 pb-8 px-0 m-auto">
+            <div className="bg-black rounded-3xl text-white shadow-2xl items-center flex flex-col justify-center text-center">
+                <em>
+                <h1 className="text-display-1 font-bold text-7xl mb-0 p-2">
+                    Scan Page
+                </h1>
+                <p className="m-0 p-4 text-2xl">
+                  Submit images to get predictions for ulcer analysis.
+                </p>
+ </em>
+           </div>
+        </div>    
+
         <div
             onDragEnter={handleDragIn}
             onDragLeave={handleDragOut}
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={`relative border-2 border-dashed rounded-lg p-8 h-56 flex flex-col items-center justify-center transition-colors
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-[#251605]"}
+          ${isDragging ? "border-blue-500 bg-blue-50" : "border-primary"}
           ${file ? "bg-green-50" : ""}
         `}
         >
@@ -120,8 +135,8 @@ export default function Scan() {
 
         {/* Upload and Predict button below */}
         {file && (
-            <div className="mt-4 text-center bg-[#251605]">
-              <Button onClick={handleUpload} variant="default">
+            <div className="mt-4 text-center">
+              <Button onClick={handleUpload} variant="default" className="bg-black text-neutral">
                 Upload and Predict
               </Button>
             </div>
@@ -129,7 +144,7 @@ export default function Scan() {
 
         {/* Display Prediction Result as a Card */}
         {prediction && confidence !== null && file && (
-            <div className="mt-8 max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="mt-8 max-w-sm mx-auto bg-tertiary shadow-lg rounded-lg overflow-hidden border-2 border-secondary">
                 <Image
                     src={URL.createObjectURL(file)}
                     alt="Uploaded file"
@@ -138,11 +153,11 @@ export default function Scan() {
                     className="w-full h-auto object-cover rounded-lg"
                 />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800">Prediction</h3>
-                  <p className="mt-2 text-sm text-gray-600">
+                  <h3 className="text-lg font-semibold text-black">Prediction</h3>
+                  <p className="mt-2 text-sm text-highlight">
                     <strong>Class:</strong> {prediction}
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-highlight">
                     <strong>Confidence:</strong> {(confidence * 100).toFixed(2)}%
                   </p>
                 </div>
