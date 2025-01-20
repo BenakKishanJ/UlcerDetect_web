@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback } from "react";
-import { Button } from "@/components/ui/button"; // Your custom Button component
+import { Button } from "@/components/ui/button"; // Custom Button component
 import { Upload } from "lucide-react";
 import Image from "next/image";
 
@@ -15,10 +15,13 @@ export default function Scan() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
+      setPrediction(null); // Clear previous prediction
+      setConfidence(null); // Clear previous confidence
+      setError(null); // Clear previous error
     }
   };
 
-  // Handle drag events
+  // Drag-and-drop handlers
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -44,13 +47,15 @@ export default function Scan() {
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       setFile(files[0]);
+      setPrediction(null); // Clear previous prediction
+      setConfidence(null); // Clear previous confidence
+      setError(null); // Clear previous error
     }
   }, []);
 
-  // Upload and send the image to backend
+  // Upload the image and fetch predictions
   const handleUpload = async (event: React.MouseEvent) => {
-    event.preventDefault(); // Prevent default behavior of button click
-
+    event.preventDefault();
     if (!file) {
       setError("No image selected");
       return;
@@ -75,45 +80,66 @@ export default function Scan() {
       }
     } catch (err) {
       setError("Failed to fetch predictions");
-      console.log(err);
+      console.error(err);
     }
   };
 
   return (
-    <div className="p-8">
-      <div className="py-4 pb-8 px-0 m-auto">
-        <div className="bg-black rounded-3xl text-white shadow-2xl items-center flex flex-col justify-center text-center">
-          <em>
-            <h1 className="text-display-1 font-bold text-7xl mb-0 p-2">
-              Scan Page
-            </h1>
-          </em>
-          <p className="m-0 p-4 text-2xl">
-            Submit images to get predictions for ulcer analysis.
+    <div className="p-8 space-y-8">
+      {/* Header Section */}
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-black">
+          Scan for Ulcer Detection
+        </h1>
+        <p className="mt-2 text-lg text-gray-600">
+          Upload an image to receive predictions and confidence levels for ulcer
+          analysis.
+        </p>
+      </div>
+
+      {/* Steps Section */}
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="p-4 bg-gray-800 rounded-lg shadow">
+          <h3 className="font-semibold text-lg text-white">Step 1</h3>
+          <p className="mt-2 text-sm text-gray-100">
+            Select or drag-and-drop the image of the ulcer.
+          </p>
+        </div>
+        <div className="p-4 bg-gray-800 rounded-lg shadow">
+          <h3 className="font-semibold text-lg text-white">Step 2</h3>
+          <p className="mt-2 text-sm text-gray-100">
+            Click "Upload and Predict" to analyze the image.
+          </p>
+        </div>
+        <div className="p-4 bg-gray-800 rounded-lg shadow">
+          <h3 className="font-semibold text-lg text-white">Step 3</h3>
+          <p className="mt-2 text-sm text-gray-100">
+            View predictions and confidence scores instantly.
           </p>
         </div>
       </div>
 
+      {/* Drag-and-Drop or File Upload Section */}
       <div
         onDragEnter={handleDragIn}
         onDragLeave={handleDragOut}
         onDragOver={handleDrag}
         onDrop={handleDrop}
-        className={`relative border-2 border-dashed rounded-lg p-8 h-56 flex flex-col items-center justify-center transition-colors
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-primary"}
-          ${file ? "bg-green-50" : ""}
-        `}
+        className={`relative border-2 border-dashed rounded-lg p-8 h-56 flex flex-col items-center justify-center transition-colors ${
+          isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
+        } ${file ? "bg-green-50" : ""}`}
       >
         <input
           type="file"
           accept="image/*"
           onChange={handleFileChange}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          title="Choose a file or drag it here"
         />
 
         <Upload
-          className={`w-12 h-12 mb-4 ${isDragging ? "text-blue-500" : "text-gray-400"}`}
+          className={`w-12 h-12 mb-4 ${
+            isDragging ? "text-blue-500" : "text-gray-400"
+          }`}
         />
 
         {file ? (
@@ -133,44 +159,44 @@ export default function Scan() {
         )}
       </div>
 
-      {/* Upload and Predict button below */}
+      {/* Upload Button */}
       {file && (
         <div className="mt-4 text-center">
           <Button
             onClick={handleUpload}
             variant="default"
-            className="bg-black text-neutral"
+            className="bg-blue-600 hover:bg-blue-700 text-white"
           >
             Upload and Predict
           </Button>
         </div>
       )}
 
-      {/* Display Prediction Result as a Card */}
+      {/* Prediction Result */}
       {prediction && confidence !== null && file && (
-        <div className="mt-8 max-w-sm mx-auto bg-tertiary shadow-lg rounded-lg overflow-hidden border-2 border-secondary">
+        <div className="mt-8 max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           <Image
             src={URL.createObjectURL(file)}
             alt="Uploaded file"
-            width={400} // Set a fixed width or use a responsive size
-            height={225} // Set a fixed height for the image
-            className="w-full h-auto object-cover rounded-lg"
+            width={400}
+            height={225}
+            className="w-full object-cover"
           />
           <div className="p-4">
-            <h3 className="text-lg font-semibold text-black">Prediction</h3>
-            <p className="mt-2 text-sm text-highlight">
+            <h3 className="text-lg font-semibold">Prediction Result</h3>
+            <p className="text-sm mt-2">
               <strong>Class:</strong> {prediction}
             </p>
-            <p className="text-sm text-highlight">
+            <p className="text-sm">
               <strong>Confidence:</strong> {(confidence * 100).toFixed(2)}%
             </p>
           </div>
         </div>
       )}
 
-      {/* Display Error Message */}
+      {/* Error Message */}
       {error && (
-        <div style={{ marginTop: "1rem", color: "red" }}>
+        <div className="mt-4 text-red-500 text-center">
           <strong>Error:</strong> {error}
         </div>
       )}

@@ -19,10 +19,10 @@ export default function dashboard() {
             </p>
             <div className="flex justify-center md:justify-start space-x-4">
               <button className="bg-white text-primary px-6 py-3 rounded-md font-medium hover:bg-blue-100">
-                Get Started
+                <a href="/scan">Get Started</a>
               </button>
               <button className="bg-transparent border border-white px-6 py-3 rounded-md font-medium hover:bg-blue-500">
-                Learn More
+                <a href="/resources">Learn More</a>
               </button>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default function dashboard() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16">
+      <section className="py-16" id="features">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Key Features</h2>
           <div className="flex flex-wrap justify-center gap-8">
@@ -64,7 +64,7 @@ export default function dashboard() {
       </section>
 
       {/* How It Works Section */}
-      <section className="bg-gray-100 py-16">
+      <section className="bg-gray-100 py-16" id="how-it-works">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">How It Works</h2>
           <div className="flex flex-wrap justify-center gap-12">
@@ -88,7 +88,7 @@ export default function dashboard() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16">
+      <section className="py-16" id="testimonials">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">What Users Say</h2>
           <div className="flex flex-wrap justify-center gap-8">
@@ -129,7 +129,7 @@ export default function dashboard() {
             Start using our app today and experience the future of healthcare.
           </p>
           <button className="bg-white text-primary px-8 py-3 rounded-md font-medium hover:bg-blue-100">
-            Start Scanning Now
+            <a href="/scan">Start Scanning Now</a>
           </button>
         </div>
       </section>
