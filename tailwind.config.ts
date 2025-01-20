@@ -11,16 +11,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#49111c",   // Main brand color
-        secondary: "#5e503f", // Supporting color
-        tertiary: "#a9927d",  // Additional accent
-        neutral: "#f2f4f3",   // Backgrounds/subtle UI elements
-        highlight: "#0a0908", // Attention-grabbing color
+        primary: "#6C698D", // Main brand color #49111c
+        secondary: "#AA968A", // Supporting color
+        tertiary: "#BFAFA6", // Additional accent
+        neutral: "#D4D2D5", // Backgrounds/subtle UI elements
+        highlight: "#6E6A6F", // Attention-grabbing color
       },
       borderRadius: {
-        lg: "var(--radius)",               // Uses CSS variable
-        md: "calc(var(--radius) - 2px)",   // Slightly smaller than lg
-        sm: "calc(var(--radius) - 4px)",   // Smallest radius
+        lg: "var(--radius)", // Uses CSS variable
+        md: "calc(var(--radius) - 2px)", // Slightly smaller than lg
+        sm: "calc(var(--radius) - 4px)", // Smallest radius
       },
     },
   },
