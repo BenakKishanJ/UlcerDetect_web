@@ -1,22 +1,21 @@
-import { withAuth } from "@kinde-oss/kinde-auth-nextjs/middleware";
-import { NextResponse, type NextRequest } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default withAuth(
-  async function middleware(request: NextRequest) {
-    const { pathname } = request.nextUrl;
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/scan(.*)",
+  "/reports(.*)",
+]);
 
-    // Allow root path without authentication
-    if (pathname === "/") {
-      return NextResponse.next();
-    }
-
-}
-);
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) await auth.protect();
+});
 
 export const config = {
   matcher: [
-    // Exclude root path from matcher
-    "/((?!api|_next/static|_next/image|favicon.ico|$).*)",
-    "/homepage",
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
   ],
 };
+
