@@ -11,10 +11,13 @@ export default function Scan() {
   const [confidence, setConfidence] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // File selection handlers
+  // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
+      setPrediction(null); // Clear previous prediction
+      setConfidence(null); // Clear previous confidence
+      setError(null); // Clear previous error
     }
   };
 
@@ -40,9 +43,13 @@ export default function Scan() {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
+
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       setFile(files[0]);
+      setPrediction(null); // Clear previous prediction
+      setConfidence(null); // Clear previous confidence
+      setError(null); // Clear previous error
     }
   }, []);
 
