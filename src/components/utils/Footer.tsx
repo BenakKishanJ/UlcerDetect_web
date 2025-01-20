@@ -42,8 +42,11 @@ const Footer: React.FC = () => {
             <h2 className="text-lg font-semibold mb-4">Contact Us</h2>
             <p>
               Email:{" "}
-              <a href="mailto:support@ulcerapp.com" className="hover:underline">
-                support@ulcerapp.com
+              <a
+                href="mailto:ulcerdiabetic@gmail.com"
+                className="hover:underline"
+              >
+                ulcerdiabetic@gmail.com
               </a>
             </p>
             <p>Phone: +1 234 567 890</p>

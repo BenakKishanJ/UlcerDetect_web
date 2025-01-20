@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const Navbar: React.FC = () => {
   return (
@@ -45,7 +46,12 @@ const Navbar: React.FC = () => {
         {/* User Actions */}
         <div className="m-0 text-white">
           <SignedOut>
-            <SignInButton />
+            <SignInButton>
+              <Button variant="default" className="bg-white text-black">
+                {" "}
+                Sign In
+              </Button>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
             <UserButton showName />
