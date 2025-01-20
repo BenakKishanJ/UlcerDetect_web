@@ -19,6 +19,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 import { Fira_Sans } from "next/font/google";
 import React from "react";
@@ -50,7 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en" className={firaSans.className}>
         <body className="flex flex-col min-h-screen">
           <header className={`${firaSans.className} sticky top-0 z-50`}>
