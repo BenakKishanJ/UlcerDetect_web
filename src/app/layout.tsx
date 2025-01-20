@@ -33,6 +33,8 @@ const firaSans = Fira_Sans({
 });
 
 import { Averia_Libre } from "next/font/google";
+import Footer from "@/components/utils/Footer";
+import Navbar from "@/components/utils/Narbar";
 
 const averiaLibre = Averia_Libre({
   subsets: ["latin"],
@@ -59,73 +61,18 @@ export default function RootLayout({
       <html lang="en" className={firaSans.className}>
         <body className="flex flex-col min-h-screen">
           <header className={`${firaSans.className} sticky top-0 z-50`}>
-            <nav className="flex items-center justify-between px-8 py-4 bg-primary shadow-md w-full text-neutral ">
-              {/* Branding Section */}
-              <h1 className="font-extrabold text-4xl">
-                <em className={averiaLibre.className}>Ulcer Detect</em>
-              </h1>
-
-              {/* Navigation Items */}
-              <div className="flex-1 flex justify-center">
-                <NavigationMenu className="flex space-x-8 text-2xl font-bold">
-                  <NavigationMenuList className="flex space-x-8">
-                    <NavigationMenuItem>
-                      <NavigationMenuLink href="/dashboard">
-                        Home
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuLink href="/scan">Scan</NavigationMenuLink>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuLink href="/reports">
-                        Reports
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger className="text-2xl font-bold bg-primary">
-                        Resources
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="bg-primary">
-                        <NavigationMenuLink href="/">Link 1</NavigationMenuLink>
-                        <NavigationMenuLink href="/">Link 2</NavigationMenuLink>
-                        <NavigationMenuLink href="/">Link 3</NavigationMenuLink>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  </NavigationMenuList>
-                </NavigationMenu>
-              </div>
-
-              {/* User Actions (Sign-In/Sign-Out/Profile) */}
-              <div className="m-0 text-white">
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton showName />
-                </SignedIn>
-              </div>
-            </nav>
+            <Navbar />
           </header>
 
           {/* Main Content */}
           <main className="flex-1 bg-neutral">{children}</main>
 
           {/* Footer */}
-          <footer className="p-8 bg-secondary">
-            <div className="text-center text-xl font-semibold text-black">
-              <strong className={averiaLibre.className}>Ulcer Detect</strong>
-              <small className="block text-highlight">
-                © 2025 UlcerDetect, Inc. All rights reserved.
-              </small>
-            </div>
-          </footer>
+          <div>
+            <Footer />
+          </div>
         </body>
       </html>
     </ClerkProvider>
   );
 }
-

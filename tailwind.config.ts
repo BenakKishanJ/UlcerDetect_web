@@ -11,11 +11,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#6C698D", // Main brand color #49111c
+        primary: "#4B88A2", // Main brand color #49111c
         secondary: "#AA968A", // Supporting color
-        tertiary: "#BFAFA6", // Additional accent
-        neutral: "#D4D2D5", // Backgrounds/subtle UI elements
-        highlight: "#6E6A6F", // Attention-grabbing color
+        tertiary: "#252627", // Additional accent
+        neutral: "#D3D4D9", // Backgrounds/subtle UI elements
+        highlight: "#BB0A21", // Attention-grabbing color
       },
       borderRadius: {
         lg: "var(--radius)", // Uses CSS variable
