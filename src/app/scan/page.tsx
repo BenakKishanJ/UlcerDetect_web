@@ -75,15 +75,30 @@ export default function Scan() {
       if (response.ok) {
         setPrediction(data.class);
         setConfidence(data.confidence);
-      } else {
-        setError(data.error || "An error occurred");
+
+        const fileData = await file.arrayBuffer();
+        const base64File = Buffer.from(fileData).toString("base64");
+
+        // Store the report in the database
+        await fetch("/api/reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prediction: data.class,
+            confidence: data.confidence,
+            file: {
+              data: base64File,
+              name: file.name,
+              type: file.type,
+            },
+          }),
+        });
       }
     } catch (err) {
       setError("Failed to fetch predictions");
       console.error(err);
     }
   };
-
   return (
     <div className="p-8 space-y-8">
       {/* Header Section */}
