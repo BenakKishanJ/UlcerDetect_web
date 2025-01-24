@@ -13,7 +13,7 @@ CORS(app)
 
 # Load your model
 model = tf.keras.models.load_model(
-    "/home/benki/Projects/UlcerApp/ulcer_detect/tensorflow_model/MobileNetV2.keras"
+    "/home/benki/Projects/UlcerApp/ulcer_detect/tensorflow_model/Model.keras"
 )
 
 # Class Names
