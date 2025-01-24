@@ -20,18 +20,23 @@ const Footer: React.FC = () => {
             <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
             <ul className="space-y-2">
               <li>
-                <a href="#features" className="hover:underline">
-                  Features
+                <a href="/dashboard" className="hover:underline">
+                  Home
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:underline">
-                  How It Works
+                <a href="/scan" className="hover:underline">
+                  Scan
                 </a>
               </li>
               <li>
-                <a href="#testimonials" className="hover:underline">
-                  Testimonials
+                <a href="/reports" className="hover:underline">
+                  Rrports
+                </a>
+              </li>
+              <li>
+                <a href="/resources" className="hover:underline">
+                  Resources
                 </a>
               </li>
             </ul>
