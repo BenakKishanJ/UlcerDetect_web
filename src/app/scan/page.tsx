@@ -3,14 +3,18 @@ import React, { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button"; // Custom Button component
 import { Upload } from "lucide-react";
 import Image from "next/image";
+import ulcerInfo from "@/lib/ulcerInfo"; // Adjust the path based on where the file is stored
+import PredictionResultCard from "@/components/utils/PredictionResultCard";
+import { UlcerInfo } from "@/lib/ulcerInfo";
 
 export default function Scan() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [prediction, setPrediction] = useState<string | null>(null);
   const [confidence, setConfidence] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const [prediction, setPrediction] = useState<keyof UlcerInfo | null>(
+    "Grade 0",
+  );
   // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -187,26 +191,13 @@ export default function Scan() {
         </div>
       )}
 
-      {/* Prediction Result */}
-      {prediction && confidence !== null && file && (
-        <div className="mt-8 max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-          <Image
-            src={URL.createObjectURL(file)}
-            alt="Uploaded file"
-            width={400}
-            height={225}
-            className="w-full object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-lg font-semibold">Prediction Result</h3>
-            <p className="text-sm mt-2">
-              <strong>Class:</strong> {prediction}
-            </p>
-            <p className="text-sm">
-              <strong>Confidence:</strong> {(confidence * 100).toFixed(2)}%
-            </p>
-          </div>
-        </div>
+      {/* PredictionResultCard Component */}
+      {file && prediction !== null && (
+        <PredictionResultCard
+          prediction={prediction}
+          confidence={confidence}
+          file={file}
+        />
       )}
 
       {/* Error Message */}
