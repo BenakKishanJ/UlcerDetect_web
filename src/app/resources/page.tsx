@@ -1,41 +1,51 @@
 "use client";
 import React, { useState } from "react";
-import { Book, Download, FileText, Image } from "lucide-react";
+import { Book, Download, FileText } from "lucide-react";
+import Image from "next/image";
 
 const ResourcePage = () => {
   const [selectedBook, setSelectedBook] = useState(null);
 
   const books = [
     {
-      title: "Diabetic Foot Ulcer Management",
+      title: "Wound Care Home Skill Kit",
       description:
-        "Comprehensive guide to understanding and treating diabetic foot ulcers",
-      thumbnail: "/api/placeholder/300/400",
-      driveLink: "https://drive.google.com/path/to/book1",
+        "A practical guide to managing wounds at home with proper techniques.",
+      thumbnail: "/Wound_Home_Skill_Kit.png", // Matches the file in /public
+      driveLink:
+        "https://drive.google.com/file/d/1nYdtnnCEI0mIpqq3c69npC9K6kIW8Ke8/view?usp=sharing",
     },
     {
-      title: "Wound Healing Principles",
-      description: "Advanced techniques in wound care and healing processes",
-      thumbnail: "/api/placeholder/300/400",
-      driveLink: "https://drive.google.com/path/to/book2",
+      title: "The Diabetic Foot: Standard Treatment",
+      description:
+        "Essential guidelines for standard treatment of diabetic foot conditions.",
+      thumbnail: "/TheDiabeticFoot_StandardTreatment.png",
+      driveLink:
+        "https://drive.google.com/file/d/1nYdtnnCEI0mIpqq3c69npC9K6kIW8Ke8/view?usp=sharing",
     },
     {
-      title: "Clinical Assessment of Foot Ulcers",
-      description: "Diagnostic methods and early intervention strategies",
-      thumbnail: "/api/placeholder/300/400",
-      driveLink: "https://drive.google.com/path/to/book3",
+      title: "Management of Diabetic Foot",
+      description:
+        "Comprehensive insights into the management and care of diabetic foot complications.",
+      thumbnail: "/ManagementOfDiabeticFoot.png",
+      driveLink:
+        "https://drive.google.com/file/d/1poXyPk9baBLiga_yQ4_cz05IUxkACkmC/view?usp=sharing",
     },
     {
-      title: "Preventive Care in Ulcer Management",
-      description: "Strategies for preventing and monitoring foot ulcers",
-      thumbnail: "/api/placeholder/300/400",
-      driveLink: "https://drive.google.com/path/to/book4",
+      title: "IWGDF Guidelines",
+      description:
+        "International Working Group on the Diabetic Foot (IWGDF) evidence-based guidelines.",
+      thumbnail: "/IWGDF_Guidelines.png",
+      driveLink:
+        "https://drive.google.com/file/d/1poXyPk9baBLiga_yQ4_cz05IUxkACkmC/view?usp=sharing",
     },
     {
-      title: "Advanced Wound Healing Technologies",
-      description: "Cutting-edge approaches to wound treatment and healing",
-      thumbnail: "/api/placeholder/300/400",
-      driveLink: "https://drive.google.com/path/to/book5",
+      title: "Diabetic Foot Ulcer: Wagner Scale",
+      description:
+        "Understanding the Wagner Scale for diabetic foot ulcer classification and treatment.",
+      thumbnail: "/DiabeticFootUlcer_WagnerScale.png",
+      driveLink:
+        "https://drive.google.com/file/d/1Ao10uFm5dMa7Fg9ccQwYzKTVtCDu1-wX/view?usp=sharing",
     },
   ];
 
@@ -49,7 +59,6 @@ const ResourcePage = () => {
           Comprehensive information and educational materials
         </p>
       </div>
-
       {/* Informational Sections */}
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <div className="bg-white shadow-lg rounded-lg p-6">
@@ -76,7 +85,6 @@ const ResourcePage = () => {
           </ul>
         </div>
       </div>
-
       {/* Book Resources */}
       <div className="bg-gray-50 py-12 px-4">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
@@ -90,7 +98,13 @@ const ResourcePage = () => {
               onClick={() => window.open(book.driveLink, "_blank")}
             >
               <div className="h-64 bg-gray-200 flex items-center justify-center">
-                <Image className="w-32 h-48 object-cover" />
+                <Image
+                  src={book.thumbnail}
+                  alt={book.title}
+                  width={128}
+                  height={192}
+                  className="w-32 h-48 object-cover"
+                />
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-2 text-gray-800">
