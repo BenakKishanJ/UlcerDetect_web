@@ -40,24 +40,31 @@ export default function dashboard() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16" id="features">
+      <section className="py-16 bg-gray-50" id="features">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Key Features</h2>
-          <div className="flex flex-wrap justify-center gap-8">
+          <h2 className="text-4xl font-extrabold mb-12 text-gray-800">
+            Key Features
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <FeatureCard
-              title="AI-Powered Detection"
-              description="Leverage advanced machine learning for instant results."
-              icon="⚡"
+              title="AI-Driven Accuracy"
+              description="Utilize cutting-edge AI technology for precise detection and reliable insights every time."
+              icon="🤖"
             />
             <FeatureCard
-              title="Real-Time Analysis"
-              description="Get accurate results in just a few seconds."
-              icon="⏱️"
+              title="User-Friendly Interface"
+              description="Intuitive and responsive design ensures effortless navigation and ease of use for all users."
+              icon="🎨"
             />
             <FeatureCard
-              title="Secure & Private"
-              description="Your data is encrypted and never shared."
-              icon="🔒"
+              title="Data Security & Privacy"
+              description="Your data is safeguarded with advanced encryption and strict privacy protocols to ensure confidentiality."
+              icon="🔐"
+            />
+            <FeatureCard
+              title="Report History Retrieval"
+              description="Access and manage past reports effortlessly, enabling detailed analysis and record-keeping."
+              icon="🗂️"
             />
           </div>
         </div>
@@ -87,27 +94,71 @@ export default function dashboard() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16" id="testimonials">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">What Users Say</h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            <Testimonial
-              name="John Doe"
-              feedback="This app is a lifesaver! The detection is fast and accurate."
-            />
-            <Testimonial
-              name="Jane Smith"
-              feedback="I love how secure and easy to use this app is."
-            />
-            <Testimonial
-              name="Dr. Emily White"
-              feedback="A brilliant tool for healthcare professionals."
-            />
+      {/* Frequently Asked Questions */}
+
+      <section className="py-16 bg-gray-50" id="faq">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-extrabold mb-12 text-center text-gray-800">
+            Frequently Asked Questions: Diabetic Foot Ulcers
+          </h2>
+          <div className="space-y-8">
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-gray-700">
+                What is a Diabetic Foot Ulcer?
+              </h3>
+              <p className="text-gray-600">
+                A diabetic foot ulcer is an open sore, often on the bottom of
+                the foot, that occurs in people with diabetes. It can lead to
+                complications like infection or even amputation but is largely
+                preventable with proper care.
+              </p>
+            </div>
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-gray-700">
+                Who is at Risk of Developing a Diabetic Foot Ulcer?
+              </h3>
+              <p className="text-gray-600">
+                People with diabetes, especially those with poor circulation,
+                neuropathy, or conditions like kidney or heart disease, are at
+                higher risk. Factors like obesity, smoking, and alcohol use can
+                also increase the likelihood.
+              </p>
+            </div>
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-gray-700">
+                How Do Diabetic Foot Ulcers Form?
+              </h3>
+              <p className="text-gray-600">
+                Ulcers develop due to nerve damage, poor circulation, or foot
+                deformities. High blood sugar levels can impair healing and
+                increase the risk of infection.
+              </p>
+            </div>
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-gray-700">
+                How Are Diabetic Foot Ulcers Treated?
+              </h3>
+              <p className="text-gray-600">
+                Treatment includes keeping the ulcer clean, reducing pressure on
+                the area (off-loading), managing blood sugar levels, and using
+                medications or dressings. In severe cases, surgery may be
+                required.
+              </p>
+            </div>
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-gray-700">
+                How Can a Diabetic Foot Ulcer Be Prevented?
+              </h3>
+              <p className="text-gray-600">
+                Prevention involves managing blood sugar levels, wearing proper
+                footwear, inspecting feet daily, and avoiding smoking and
+                alcohol. Regular visits to a podiatrist can help identify and
+                mitigate risks early.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-
       {/* About Section */}
       <section className="bg-gray-100 py-16">
         <div className="container mx-auto text-center">
