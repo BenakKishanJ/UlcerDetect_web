@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="/reports" className="hover:underline">
-                  Rrports
+                  Reports
                 </a>
               </li>
               <li>
