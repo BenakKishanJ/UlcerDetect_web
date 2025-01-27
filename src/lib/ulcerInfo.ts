@@ -7,6 +7,7 @@ export interface UlcerGradeInfo {
   care?: string[];
 }
 
+// Define keys explicitly as "Grade 0" to "Grade 5"
 export interface UlcerInfo {
   "Grade 0": UlcerGradeInfo;
   "Grade 1": UlcerGradeInfo;
@@ -17,6 +18,6 @@ export interface UlcerInfo {
 }
 
 // Add TypeScript typing to the imported JSON
-const ulcerInfo = ulcerInfoJson as unknown as UlcerInfo;
+const ulcerInfo: UlcerInfo = ulcerInfoJson as UlcerInfo;
 
 export default ulcerInfo;
