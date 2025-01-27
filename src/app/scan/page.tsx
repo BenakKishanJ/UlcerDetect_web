@@ -3,14 +3,18 @@ import React, { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button"; // Custom Button component
 import { Upload } from "lucide-react";
 import Image from "next/image";
+import ulcerInfo from "@/lib/ulcerInfo"; // Adjust the path based on where the file is stored
+import PredictionResultCard from "@/components/utils/PredictionResultCard";
+import { UlcerInfo } from "@/lib/ulcerInfo";
 
 export default function Scan() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [prediction, setPrediction] = useState<string | null>(null);
   const [confidence, setConfidence] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const [prediction, setPrediction] = useState<keyof UlcerInfo | null>(
+    "Grade 0",
+  );
   // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -75,15 +79,30 @@ export default function Scan() {
       if (response.ok) {
         setPrediction(data.class);
         setConfidence(data.confidence);
-      } else {
-        setError(data.error || "An error occurred");
+
+        const fileData = await file.arrayBuffer();
+        const base64File = Buffer.from(fileData).toString("base64");
+
+        // Store the report in the database
+        await fetch("/api/reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prediction: data.class,
+            confidence: data.confidence,
+            file: {
+              data: base64File,
+              name: file.name,
+              type: file.type,
+            },
+          }),
+        });
       }
     } catch (err) {
       setError("Failed to fetch predictions");
       console.error(err);
     }
   };
-
   return (
     <div className="p-8 space-y-8">
       {/* Header Section */}
@@ -172,26 +191,13 @@ export default function Scan() {
         </div>
       )}
 
-      {/* Prediction Result */}
-      {prediction && confidence !== null && file && (
-        <div className="mt-8 max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-          <Image
-            src={URL.createObjectURL(file)}
-            alt="Uploaded file"
-            width={400}
-            height={225}
-            className="w-full object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-lg font-semibold">Prediction Result</h3>
-            <p className="text-sm mt-2">
-              <strong>Class:</strong> {prediction}
-            </p>
-            <p className="text-sm">
-              <strong>Confidence:</strong> {(confidence * 100).toFixed(2)}%
-            </p>
-          </div>
-        </div>
+      {/* PredictionResultCard Component */}
+      {file && prediction !== null && (
+        <PredictionResultCard
+          prediction={prediction}
+          confidence={confidence}
+          file={file}
+        />
       )}
 
       {/* Error Message */}

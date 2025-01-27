@@ -1,0 +1,69 @@
+{
+  "Grade 0": {
+    "type": "No Ulcer",
+    "description": "No ulceration or open wounds. The skin is intact, and there are no signs of tissue damage or infection. This is the healthiest condition, indicating no risk or early intervention required.",
+    "treatment": "No treatment is needed. Continue regular foot care and monitoring to maintain skin health.",
+    "care": [
+      "Wash and dry feet daily, especially between the toes.",
+      "Apply moisturizer to prevent dryness, but avoid areas between the toes.",
+      "Wear well-fitted, protective footwear to avoid pressure or injury.",
+      "Inspect feet daily for any signs of redness, swelling, or injuries.",
+      "Schedule regular check-ups with a healthcare provider if you have diabetes or other risk factors."
+    ]
+  },
+  "Grade 1": {
+    "type": "Mild Ulcer",
+    "description": "A superficial skin lesion, typically limited to the outermost skin layer (epidermis). There is no visible infection or tissue damage beneath the skin.",
+    "treatment": [
+      "Clean the ulcer gently with saline or sterile water.",
+      "Apply a protective, non-adhesive dressing to prevent further friction or pressure.",
+      "Encourage offloading by avoiding pressure on the affected area.",
+      "Moisturize surrounding skin to prevent dryness and cracking.",
+      "Monitor for signs of infection, such as redness or swelling."
+    ]
+  },
+  "Grade 2": {
+    "type": "Moderate Ulcer",
+    "description": "A deeper ulcer that affects both the epidermis and dermis. It may involve some necrotic tissue and show early signs of infection.",
+    "treatment": [
+      "Debride necrotic tissue under medical supervision.",
+      "Apply antimicrobial or antibiotic ointments to reduce infection risk.",
+      "Use foam or hydrocolloid dressings to maintain a moist wound environment.",
+      "Perform regular dressing changes as recommended by a healthcare professional.",
+      "Elevate the affected area to improve blood flow and reduce swelling."
+    ]
+  },
+  "Grade 3": {
+    "type": "Severe Ulcer",
+    "description": "An ulcer that extends into subcutaneous tissue, often with visible tissue damage and possible infection. Muscle tissue may also be involved.",
+    "treatment": [
+      "Seek immediate medical attention to address underlying infection.",
+      "Clean the wound thoroughly with antiseptic solutions.",
+      "Administer systemic antibiotics if prescribed.",
+      "Consider advanced wound care, such as vacuum-assisted closure (VAC) therapy.",
+      "Monitor for signs of systemic infection, such as fever or chills."
+    ]
+  },
+  "Grade 4": {
+    "type": "Critical Ulcer",
+    "description": "A deep ulcer with extensive tissue damage extending into muscle, tendon, or bone. Severe infection and possible abscess formation may be present.",
+    "treatment": [
+      "Urgent hospitalization for wound management and infection control.",
+      "Surgical intervention may be required to remove infected or dead tissue.",
+      "Administer intravenous antibiotics to control infection.",
+      "Implement advanced therapies, such as skin grafting or reconstructive surgery.",
+      "Provide proper nutrition and hydration to promote healing."
+    ]
+  },
+  "Grade 5": {
+    "type": "Life-Threatening Ulcer",
+    "description": "The most severe stage of an ulcer, with extensive tissue destruction, gangrene, and systemic infection. It often poses a serious risk to the patient's life.",
+    "treatment": [
+      "Emergency medical intervention is necessary.",
+      "Amputation may be required if gangrene is present and uncontrollable.",
+      "Administer aggressive intravenous antibiotics and other supportive therapies.",
+      "Monitor for sepsis or organ failure in a critical care setting.",
+      "Implement palliative care for pain management and patient comfort, if necessary."
+    ]
+  }
+}
